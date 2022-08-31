@@ -1,0 +1,11 @@
+- id: '1601208243990'
+  alias: sensor_values_to_file
+  description: ''
+  trigger:
+  - platform: time_pattern
+    seconds: /10
+  condition: []
+  action:
+  - service: notify.filenotify
+    data_template:
+        message: '{{now().strftime("%d.%m.%Y")}},{{now().strftime("%H:%M:%S")}},{{states.sensor.owlet_smart_sock_ac000w013414572.attributes.heart_rate}},{{states.sensor.owlet_smart_sock_ac000w013414572.attributes.oxygen_saturation}},{{states.sensor.owlet_smart_sock_ac000w013414572.attributes.movement}},{{states.sensor.owlet_smart_sock_ac000w013414572.attributes.battery}},{{states.sensor.owlet_smart_sock_ac000w013414572.attributes.ble_rssi}},{{states.sensor.owlet_smart_sock_ac000w013414572.state}},{{states.sensor.owlet_smart_sock_ac000w013414572.attributes.HIGH_HR_ALRT}},{{states.sensor.owlet_smart_sock_ac000w013414572.attributes.LOW_HR_ALRT}},{{states.sensor.owlet_smart_sock_ac000w013414572.attributes.LOW_OX_ALRT}},{{states.sensor.owlet_smart_sock_ac000w013414572.attributes.LOW_BATT_ALRT}},{{states.sensor.owlet_smart_sock_ac000w013414572.attributes.LOW_INTEG_READ}}'

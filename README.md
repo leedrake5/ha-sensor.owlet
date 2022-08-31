@@ -19,11 +19,11 @@ After installing the integration, you need to enable it by adding the sensor con
 ```yaml
 sensor:
   - platform: owlet
-    username: "owlet_api_email"
-    password: !secret owlet_password
+    username: your_owlet_email
+    password: your_owlet_password
     region: "world"
 ```
-And if you want to have individual sensor values for the attributes, e.g. for graphing in grafana via prometheus, you can use value_templates:
+Note that this formatting assumes you are using the secrets file. And if you want to have individual sensor values for the attributes, e.g. for outputting to a csv, you can use value_templates:
 ```yaml
 - platform: template
   sensors:
@@ -46,3 +46,5 @@ And if you want to have individual sensor values for the attributes, e.g. for gr
       value_template: "{{states.sensor.owlet_smart_sock_[YOUR_SMART_SOCK_SERIAL_NUMBER].attributes.ble_rssi}}"
       unit_of_measurement: dBm
 ```
+
+In the ha folder, you can find example configuration and automation yaml files that you can use with a docker installation to output data to a single csv file.

@@ -1,0 +1,62 @@
+# Loads default set of integrations. Do not remove.
+default_config:
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+sensor:
+  - platform: owlet
+    username: !secret your_owlet_email
+    password: !secret your_owlet_password
+    region: "world"
+
+template:
+  sensor:
+    - name: "owlet_heart_rate"
+      state: "{{states.sensor.owlet_smart_sock_ac000w013414572.attributes.heart_rate}}"
+      unit_of_measurement: BPM
+    - name: "owlet_spo2"
+      state: "{{states.sensor.owlet_smart_sock_ac000w013414572.attributes.oxygen_saturation}}"
+      unit_of_measurement: SPO2
+    - name: "owlet_movement"
+      state: "{{states.sensor.owlet_smart_sock_ac000w013414572.attributes.movement}}"
+      unit_of_measurement: '%'
+    - name: "owlet_battery"
+      state: "{{states.sensor.owlet_smart_sock_ac000w013414572.attributes.battery}}"
+      unit_of_measurement: '%'
+    - name: "owlet_rssi"
+      state: "{{states.sensor.owlet_smart_sock_ac000w013414572.attributes.ble_rssi}}"
+      unit_of_measurement: dBm
+    - name: "owlet_monitoring_status"
+      state: "{{states.sensor.owlet_smart_sock_ac000w013414572.attributes.ble_rssi}}"
+      unit_of_measurement: dBm
+    - name: "owlet_connection"
+      state: "{{states.sensor.owlet_smart_sock_ac000w013414572.state}}"
+      unit_of_measurement: boolean
+    - name: "owlet_tachycardia_alert"
+      state: "{{states.sensor.owlet_smart_sock_ac000w013414572.attributes.HIGH_HR_ALRT}}"
+      unit_of_measurement: boolean
+    - name: "owlet_bradycardia_alert"
+      state: "{{states.sensor.owlet_smart_sock_ac000w013414572.attributes.LOW_HR_ALRT}}"
+      unit_of_measurement: boolean
+    - name: "owlet_hypoxia_alert"
+      state: "{{states.sensor.owlet_smart_sock_ac000w013414572.attributes.LOW_OX_ALRT}}"
+      unit_of_measurement: boolean
+    - name: "owlet_lobatt_alert"
+      state: "{{states.sensor.owlet_smart_sock_ac000w013414572.attributes.LOW_BATT_ALRT}}"
+      unit_of_measurement: boolean
+    - name: "owlet_read_integrity_alert"
+      state: "{{states.sensor.owlet_smart_sock_ac000w013414572.attributes.LOW_INTEG_READ}}"
+      unit_of_measurement: boolean
+
+
+notify:
+  - platform: file
+    name: filenotify
+    filename: owlet_data.csv
+    #timestamp: true
